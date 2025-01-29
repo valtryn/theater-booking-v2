@@ -4,11 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -34,7 +30,7 @@ public class Controller {
                         for (int i = 0; i < data.length; i++) {
                             data[i] = data[i].trim();
                         }
-                        String title = data[4]; // Get the title from the correct index
+                        String title = data[4];
                         for (TheaterShow show : session.shows) {
                             if (show.name.equalsIgnoreCase(title)) {
                                 int index = SeatReservationWindow.getSeatIndex(data[3]);
@@ -57,7 +53,6 @@ public class Controller {
             try {
                 SeatReservationWindow stage = new SeatReservationWindow(session.shows[showIndex], this);
                 stage.openWindow();
-                System.out.println("New window opened");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,7 +61,6 @@ public class Controller {
         }
     }
 
-    // Button event methods
     public void button1(ActionEvent event) {
         openReservationWindow(0);
     }

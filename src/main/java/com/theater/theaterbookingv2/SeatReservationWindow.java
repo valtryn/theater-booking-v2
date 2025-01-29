@@ -1,6 +1,6 @@
 package com.theater.theaterbookingv2;
 
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
-import javafx.scene.control.ListView;
 
 import java.io.IOException;
 
@@ -69,29 +68,25 @@ public class SeatReservationWindow {
 
     public void drawMarkY() {
         GraphicsContext gc = markY.getGraphicsContext2D();
-        gc.setFill(Color.FLORALWHITE);  // Set text color
-        gc.setFont(new Font("Arial", 16));  // Set font for the labels
+        gc.setFill(Color.FLORALWHITE);
+        gc.setFont(new Font("Arial", 16));
 
-        int baseY = 20;  // Starting y-coordinate for the labels
-        int gap = 12;  // Gap between seats and labels
-        char rowLabel = 'A';  // Start with "A" for the row labels
+        int baseY = 20;
+        int gap = 12;
+        char rowLabel = 'A';
 
         for (int row = 0; row < 5; row++) {
-            // Draw row label (A-E)
             gc.fillText(String.valueOf(rowLabel), 20, baseY + (row * (25 + gap)) + 12);
-            rowLabel++;  // Increment to the next letter for each row
+            rowLabel++;
         }
     }
 
     public void drawMarkX() {
         GraphicsContext gc = markX.getGraphicsContext2D();
-
-        // Draw labels for the columns (1-13)
-        gc.setFill(Color.FLORALWHITE);  // Set text color
-        gc.setFont(new Font("Arial", 15));  // Set font for the labels
-
-        int baseX = 15;  // Starting x-coordinate for the labels
-        int gap = 12;  // Gap between seats and labels
+        gc.setFill(Color.FLORALWHITE);
+        gc.setFont(new Font("Arial", 15));
+        int baseX = 15;
+        int gap = 12;
 
         for (int col = 0; col < 13; col++) {
             gc.fillText(String.valueOf(col + 1), baseX + (col * (25 + gap)) + 8, 15);
@@ -172,11 +167,8 @@ public class SeatReservationWindow {
         Painter.drawRectangle(gc, posx[seatIndex], posy[seatIndex], seatWidth, seatHeight, 1, Painter.GREEN, Painter.CRUST);
         msgBox.setText(String.format("You have successfully booked %s.", seatEntry));
         msgBox.setStyle("-fx-text-fill: green;");
-
         Ticket ticket = new Ticket(show.name, dateList.getValue(), timeList.getValue(), seatEntry, show.seatPrice(seatIndex));
         controller.items.add(ticket.formatTicket());
-        //  mainController.tableView.getItems().add(new Ticket(show.name, dateList.getValue(), timeList.getValue(), seatEntry, show.seatPrice(seatIndex)));
-
     }
 
     public void setDateTimeList() {
