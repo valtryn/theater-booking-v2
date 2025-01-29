@@ -1,5 +1,6 @@
 package com.theater.theaterbookingv2;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
+import javafx.scene.control.ListView;
 
 import java.io.IOException;
 
@@ -44,9 +46,11 @@ public class SeatReservationWindow {
 
     private int seatWidth = 25;
     private int seatHeight = 25;
+    private Controller controller;
 
-    public SeatReservationWindow(TheaterShow show) {
+    public SeatReservationWindow(TheaterShow show, Controller controller) {
         this.show = show;
+        this.controller = controller;
     }
 
     public void openWindow() throws IOException {
@@ -132,7 +136,7 @@ public class SeatReservationWindow {
         }
     }
 
-    public int getSeatIndex(String seat) {
+    public static int getSeatIndex(String seat) {
         if (seat.length() < 2) return -1;
         char rowChar = Character.toUpperCase(seat.charAt(0));
         int colNum;
@@ -168,6 +172,11 @@ public class SeatReservationWindow {
         Painter.drawRectangle(gc, posx[seatIndex], posy[seatIndex], seatWidth, seatHeight, 1, Painter.GREEN, Painter.CRUST);
         msgBox.setText(String.format("You have successfully booked %s.", seatEntry));
         msgBox.setStyle("-fx-text-fill: green;");
+
+        Ticket ticket = new Ticket(show.name, dateList.getValue(), timeList.getValue(), seatEntry, show.seatPrice(seatIndex));
+        controller.items.add(ticket.formatTicket());
+        //  mainController.tableView.getItems().add(new Ticket(show.name, dateList.getValue(), timeList.getValue(), seatEntry, show.seatPrice(seatIndex)));
+
     }
 
     public void setDateTimeList() {

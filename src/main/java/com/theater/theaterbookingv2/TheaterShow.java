@@ -39,8 +39,7 @@ public class TheaterShow {
     }
 
     public void cancelBooking(int index) {
-        if (index < 0 || index >= 65) {
-        } else {
+        if (index >= 0 && index < 65) { // Correct condition
             seats[index] = false;
         }
     }
